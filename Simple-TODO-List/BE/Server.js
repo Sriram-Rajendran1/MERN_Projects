@@ -1,11 +1,19 @@
 require("dotenv").config({ path: "./config.env" });
+const cors = require("cors");
 const express = require("express");
-const { default: mongoose } = require("mongoose");
+const mongoose = require("mongoose");
 const app = express();
+app.use(cors());
+app.use(express.json());
+const postrouter = require("./Router/postRouter");
+const getrouter = require("./Router/getRouter");
+const deleterouter = require("./Router/deleteRouter");
+const updaterouter = require("./Router/updateRouter");
 
-app.get("/", (req, res) => {
-  res.send("Welcome to Simple TODO-Application");
-});
+app.use("/api/v1", postrouter);
+app.use("/api/v1", getrouter);
+app.use("/api/v1", deleterouter);
+app.use("/api/v1", updaterouter);
 
 const URL = process.env.DBConnectionURL.replace(
   "<password>",
