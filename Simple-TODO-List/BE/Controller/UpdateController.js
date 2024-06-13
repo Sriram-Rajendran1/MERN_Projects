@@ -3,13 +3,16 @@ const PostModel = require("../Model/PostModel");
 const updatecontrollerMethod = async (req, res) => {
   try {
     const { id } = req.params;
-    console.log(id);
     const { title, description, status, priority } = req.body;
 
+    // const findId = await PostModel.findById(id);
+    // console.log(findId);
     const findId = await PostModel.findById(id);
+    console.log(`Find result: ${findId}`);
 
     if (!findId) {
-      res
+      console.log("ID not found, returning 404");
+      return res
         .status(404)
         .json({ status: "failed", message: "Id Not found for update" });
     }
