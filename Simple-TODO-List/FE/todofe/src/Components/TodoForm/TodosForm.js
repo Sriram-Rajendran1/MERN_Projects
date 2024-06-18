@@ -3,11 +3,11 @@ import "../TodoForm/TodoForm.css";
 import { UserContext } from "../Context/UserContext";
 
 const TodosForm = () => {
-  const { input, setInput, data, setData } = useContext(UserContext);
+  const { input, setInput, data, setData, edit, setEdit } =
+    useContext(UserContext);
 
   const handleTitle = (e) => {
     const { name, value } = e.target;
-    console.log(e.target.value);
     setInput((previnp) => ({ ...previnp, [name]: value }));
   };
 
@@ -21,6 +21,11 @@ const TodosForm = () => {
       status: "pending",
       priority: "medium",
     });
+    setEdit(0);
+  };
+
+  const isInputvalid = () => {
+    return input.title.trim() !== "" && input.description.trim() !== "";
   };
 
   return (
@@ -51,13 +56,11 @@ const TodosForm = () => {
           <label className="statuslabel"> Status : </label>
           <select
             className="status"
-            name="Status"
+            name="status"
             value={input.status}
             onChange={(e) => handleTitle(e)}
           >
-            <option value="pending" selected>
-              pending
-            </option>
+            <option value="pending">pending</option>
             <option value="in-progress">in-progress</option>
             <option value="completed">completed</option>
           </select>
@@ -69,15 +72,17 @@ const TodosForm = () => {
             onChange={(e) => handleTitle(e)}
           >
             <option value="low">low</option>
-            <option value="medium" selected>
-              medium
-            </option>
+            <option value="medium">medium</option>
             <option value="high">high</option>
           </select>
         </div>
         <div className="buttondiv">
-          <button className="addbutton" type="Submit">
-            Add
+          <button
+            className="addbutton"
+            type="Submit"
+            disabled={!isInputvalid()}
+          >
+            {edit === 1 ? "save" : "add"}
           </button>
         </div>
       </form>

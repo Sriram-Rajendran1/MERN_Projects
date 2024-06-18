@@ -17,14 +17,9 @@ const UserContextProvider = ({ children }) => {
     priority: "medium",
   });
 
-  const [data, setData] = useState([
-    {
-      title: "test-80",
-      description: "this is a test message",
-      status: "completed",
-      priority: "high",
-    },
-  ]);
+  const [data, setData] = useState([]);
+
+  const [edit, setEdit] = useState(0);
 
   return (
     <UserContext.Provider
@@ -33,6 +28,8 @@ const UserContextProvider = ({ children }) => {
         setData,
         input,
         setInput,
+        edit,
+        setEdit,
       }}
     >
       {children}
