@@ -13,7 +13,6 @@ const TodosList = () => {
   };
 
   const handleEdit = (indextoedit) => {
-    console.log(indextoedit);
     const updatedDataItem = data.find((item, index) => index === indextoedit);
     if (updatedDataItem) {
       handleDelete(indextoedit);

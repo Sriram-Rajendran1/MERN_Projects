@@ -14,7 +14,6 @@ const TodosForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setData([...data, input]);
-    console.log(data);
     setInput({
       title: "",
       description: "",
