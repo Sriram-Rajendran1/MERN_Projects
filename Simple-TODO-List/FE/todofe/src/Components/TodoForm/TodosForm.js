@@ -2,6 +2,8 @@ import React, { useContext } from "react";
 import "../TodoForm/TodoForm.css";
 import { UserContext } from "../Context/UserContext";
 
+const apiUrl = "http://localhost:4000/api/v1/posttodos";
+
 const TodosForm = () => {
   const { input, setInput, data, setData, edit, setEdit } =
     useContext(UserContext);
@@ -11,8 +13,39 @@ const TodosForm = () => {
     setInput((previnp) => ({ ...previnp, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    try {
+      const response = await fetch(apiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(input),
+      });
+      const result = await response.json();
+      console.log("Data posted:", result);
+      // Optionally, you can handle the result or update state after successful post
+
+      fetch("http://localhost:4000/api/v1/gettodos")
+        .then((response) => {
+          if (!response) {
+            throw console.error(`Networkresponse not OK`);
+          }
+          return response.json();
+        })
+        .then((datas) => {
+          console.log(datas.data.getdata);
+          setData(datas.data.getdata);
+        })
+        .catch((err) => {
+          console.log("error in display");
+        });
+    } catch (error) {
+      console.error("Error posting data:", error);
+    }
+
     setData([...data, input]);
     setInput({
       title: "",
