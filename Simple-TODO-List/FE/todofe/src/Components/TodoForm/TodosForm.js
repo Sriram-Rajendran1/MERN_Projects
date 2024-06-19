@@ -25,7 +25,7 @@ const TodosForm = () => {
         body: JSON.stringify(input),
       });
       const result = await response.json();
-      console.log("Data posted:", result);
+      //console.log("Data posted:", result);
       // Optionally, you can handle the result or update state after successful post
 
       fetch("http://localhost:4000/api/v1/gettodos")
@@ -36,7 +36,7 @@ const TodosForm = () => {
           return response.json();
         })
         .then((datas) => {
-          console.log(datas.data.getdata);
+          //console.log(datas.data.getdata);
           setData(datas.data.getdata);
         })
         .catch((err) => {

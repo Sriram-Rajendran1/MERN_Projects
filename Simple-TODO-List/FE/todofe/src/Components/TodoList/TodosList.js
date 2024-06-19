@@ -14,7 +14,6 @@ const TodosList = () => {
         return response.json();
       })
       .then((datas) => {
-        console.log(datas.data.getdata);
         setData(datas.data.getdata);
       })
       .catch((err) => {
@@ -24,8 +23,8 @@ const TodosList = () => {
 
   const handleDelete = async (indextodelete) => {
     try {
-      console.log(indextodelete);
-      console.log(typeof indextodelete);
+      //console.log(indextodelete);
+      //console.log(typeof indextodelete);
       const deleteItem = await fetch(
         `http://localhost:4000/api/v1/deletetodo/${indextodelete}`,
         {
@@ -52,7 +51,7 @@ const TodosList = () => {
 
   const handleEdit = async (indextoedit) => {
     try {
-      console.log(indextoedit);
+      //console.log(indextoedit);
       const updateDataItem = await fetch(
         `http://localhost:4000/api/v1/updatetodo/${indextoedit}`,
         {
